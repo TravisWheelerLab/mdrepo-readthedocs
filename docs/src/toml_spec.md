@@ -1,6 +1,6 @@
 # MDRepo TOML/Metadata Specification
 
-Use the [metadata creation](https://mdrepo.org/metadata) page to generate a valid TOML/metadata file, or craft one by hand using the following guidance.
+Use the [metadata creation](https://mdrepo.org/metadata) form or the [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) command-line tool to generate a valid TOML/metadata file or craft one by hand using the following description.
 
 ## Required Fields
 

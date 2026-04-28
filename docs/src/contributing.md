@@ -4,7 +4,11 @@
 
 If you wish to submit data to MDRepo, you must first [login](https://mdrepo.org/login) using [ORCID](https://orcid.org/).
 
+You must then ask the MDRepo administrators for the ability to upload.
+
 When contributing your data, you acknowledge that it will be freely available in perpetuity under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
+
+Ask any questions at [help@mdrepo.org](mailto:help@mdrepo.org).
 
 ## Preparing Your Upload
 
@@ -16,7 +20,7 @@ Each simulation directory should contain the following:
 * One structure/coordinate file.
 * One topology file (.psf for CHARMM, NAMD, XPLOR, .top, .itp, .tpr for GROMACS, .prmtop for AMBER, etc.)
 * Any additional files produced with the simulation. Maximum file size for all uploaded files is 40GB.
-* A simulation metadata file named `mdrepo-metadata.toml` in TOML format. Use the provided form to generate a file or download the [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) to generate and validate metadata files in the TOML Specification. If you have just a few simulations, you may find the [metadata creation](https://mdrepo.org/metadata) page useful to generate the required TOML file.
+* A simulation metadata file named `mdrepo-metadata.toml` in TOML format. Use the [metadata](https://mdrepo.org/metadata) form or the [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) command-line tool to generate and validate metadata files in the [TOML specification](./toml_spec.html).
 
 ## Upload Tokens
 
