@@ -1,0 +1,5 @@
+[book]
+authors = ["Ken Youens-Clark"]
+language = "en"
+multilingual = false
+src = "src"
