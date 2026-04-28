@@ -1,3 +1,6 @@
 # Summary
 
-- [Upload Prep](./upload_prep.md)
+- [Contributing](./contributing.md)
+- [TOML Specification](./toml_spec.md)
+- [mdr-meta](./mdr_meta.md)
+- [Citation](./citation.md)
