@@ -46,7 +46,7 @@ For example:
 ```
 $ mdr-meta eg
 lead_contributor_orcid = "0000-0000-0000-0000"
-trajectory_file_name = "traj.xtc"
+trajectory_file_names = ["traj.xtc"]
 structure_file_name = "struct.pdb"
 topology_file_name = "topology.gro"
 temperature_kelvin = 300
@@ -105,7 +105,7 @@ Or use the `-m|--minimal` flag to generate TOML with the fewest acceptable field
 ```
 $ mdr-meta eg -m
 lead_contributor_orcid = "0000-0000-0000-0000"
-trajectory_file_name = "traj.xtc"
+trajectory_file_names = ["traj.xtc"]
 structure_file_name = "struct.pdb"
 topology_file_name = "topology.gro"
 temperature_kelvin = 300
@@ -124,7 +124,7 @@ For example, this minimal example has a valid TOML structure:
 $ cat minimal_bad.toml
 lead_contributor_orcid = ""
 
-trajectory_file_name = ""
+trajectory_file_names = []
 
 structure_file_name = ""
 
@@ -145,20 +145,17 @@ But every field has a validation error:
 
 ```
 $ mdr-meta check minimal_bad.toml
-integration_timestep_fs: value 0 must be >= 1 and <= 5
+integration_timestep_fs: value 0 must be >= 1 and <= 20
 lead_contributor_orcid: value "" invalid
 short_description: value "" invalid
-software_name: "" invalid, choose from ACEMD, AMBER, CHARMM, GROMACS, NAMD, SPONGE
+software_name: "" invalid, choose from ACEMD, AMBER, CHARMM, CUSTOM, GROMACS, NAMD, SPONGE
 software_name: value "" invalid
 software_version: value "" invalid
-structure_file_name: filename is missing extension
-structure_file_name: value "" invalid
+structure_file_name: filename "" is missing extension
 temperature_kelvin: value 0 must be >= 275 and <= 700
-topology_file_name: filename is missing extension
-topology_file_name: value "" invalid
-trajectory_file_name: filename is missing extension
-trajectory_file_name: value "" invalid
-Filename "" is duplicated 3 times
+topology_file_name: filename "" is missing extension
+trajectory_file_names: value [] length must be >= 1
+Filename "" is duplicated 2 times
 Missing PDB and Uniprot IDs (skip with --no-id)
 ```
 
@@ -207,8 +204,11 @@ Will generate the following TOML:
 
 ```
 lead_contributor_orcid = "0000-0000-0000-0000"
-trajectory_file_name = "production.rst"
-structure_file_name = "5jz9_production_gromacs.gro"
+trajectory_file_names = [
+    "5jz9.xtc",
+    "production.rst",
+]
+structure_file_name = "5jz9_gromacs_cleaned.gro"
 topology_file_name = "production.top"
 temperature_kelvin = 300
 integration_timestep_fs = 2
@@ -217,15 +217,7 @@ software_name = "<software_name> (required)"
 software_version = "<software_version> (required)"
 
 [[additional_files]]
-file_name = "5jz9.xtc"
-file_type = "Trajectory"
-
-[[additional_files]]
 file_name = "5jz9_cleaned.pdb"
-file_type = "Structure"
-
-[[additional_files]]
-file_name = "5jz9_gromacs_cleaned.gro"
 file_type = "Structure"
 
 [[additional_files]]
@@ -241,12 +233,12 @@ file_name = "5jz9_production.pdb"
 file_type = "Structure"
 
 [[additional_files]]
-file_name = "5jz9_production_gromacs.top"
-file_type = "Topology"
+file_name = "5jz9_production_gromacs.gro"
+file_type = "Structure"
 
 [[additional_files]]
-file_name = "mdrepo-metadata.toml"
-file_type = "Other"
+file_name = "5jz9_production_gromacs.top"
+file_type = "Topology"
 
 [[contributors]]
 name = "<Your Name>"
