@@ -16,9 +16,9 @@ Your prepared submission should consist of a single directory containing a set o
 
 Each simulation directory should contain the following:
 
-* One trajectory file.
 * One structure/coordinate file.
 * One topology file (.psf for CHARMM, NAMD, XPLOR, .top, .itp, .tpr for GROMACS, .prmtop for AMBER, etc.)
+* One or more trajectory files.
 * Any additional files produced with the simulation. Maximum file size for all uploaded files is 40GB.
 * A simulation metadata file named `mdrepo-metadata.toml` in TOML format. Use the [metadata](https://mdrepo.org/metadata) form or the [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) command-line tool to generate and validate metadata files in the [TOML specification](./toml_spec.html).
 
@@ -26,7 +26,7 @@ Each simulation directory should contain the following:
 
 Use the [upload tokens](https://mdrepo.org/upload-tokens) page to get an upload token.
 
-Note that you can submit multiple simulations per token if you place each simulation directory in a parent directory.
+Note that you can submit multiple simulations per token if you place the simulation directories in a parent directory.
 
 ## Uploading with mdrepo
 
