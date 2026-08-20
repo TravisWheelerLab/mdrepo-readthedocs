@@ -32,6 +32,8 @@ The following fields are entirely optional:
 * `forcefield_comments` [text]: Comments relating to the force field used, e.g., ligand parameters
 * `protonation_method` [text]: The method used for adding the protonation state, e.g., PropKa, AutoDockFR, AutoDockFR
 * `alias` [text]: A unique, user-assigned alias/accession for the simulation
+* `sampling_frequency_ps` [floating-point number]: The simulated time between consecutive saved trajectory frames, in picoseconds (AMBER's `ntwx`, GROMACS's `nstxout`, times the integration timestep), in the range 0.001-100000. Only used as a fallback when the trajectory file itself carries no time axis (e.g., an AMBER NetCDF stripped of solvent by cpptraj, or an ASCII mdcrd) -- if the trajectory has its own time axis, that is authoritative and this value is ignored. Must not be shorter than the `integration_timestep_fs`, since a frame cannot be saved more often than the integrator steps.
+* `is_embargoed` [boolean]: Whether the simulation should be kept private (embargoed) rather than released publicly once approved. Defaults to `false` if omitted. Orthogonal to the approval process -- an embargoed simulation is hidden from public listings/downloads even after it is otherwise approved, until the embargo is lifted.
 
 ## Optional Tables
 
