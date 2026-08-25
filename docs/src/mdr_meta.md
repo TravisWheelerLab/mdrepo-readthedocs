@@ -171,18 +171,23 @@ Use the `gen` option to generate a TOML file from a prepared directory:
 $ mdr-meta gen -h
 Generate metadata file from directory contents
 
-Usage: mdr-meta gen [OPTIONS]
+Usage: mdr-meta gen [OPTIONS] --software <SOFTWARE>
 
 Options:
-  -d, --directory <DIR>     Output format
-  -f, --format <FORMAT>     Output format [possible values: json, toml]
-  -o, --outfile <OUTPUT>    Output filename [default: -]
-      --trajectory <TRAJ>   Trajectory filename
-      --structure <STRUCT>  Structure filename
-      --topology <TOPO>     Topology filename
-      --template <TMPL>     TOML template
-  -h, --help                Print help
+  -s, --software <SOFTWARE>  Simulation software/engine, e.g. GROMACS [possible values: ACEMD, AMBER, CHARMM, CUSTOM, GROMACS, NAMD, SPONGE]
+  -d, --directory <DIR>      Input directory (defaults to the current directory)
+  -f, --format <FORMAT>      Output format [possible values: json, toml]
+  -o, --outfile <OUTPUT>     Output filename [default: -]
+      --trajectory <TRAJ>    Trajectory filename
+      --structure <STRUCT>   Structure filename
+      --topology <TOPO>      Topology filename
+  -h, --help                 Print help (see more with '--help')
 ```
+
+`--software` is required: some file extensions mean different things for different engines
+(`.gro` is GROMACS's structure file but SPONGE's topology file; `.crd` is AMBER's trajectory
+but CHARMM/NAMD's structure), so files can't be classified correctly without knowing which
+convention applies.
 
 Using the original files from [MDR00016593](https://mdrepo.org/explore/MDR00016593) as an example:
 
@@ -199,23 +204,20 @@ $ ls -1 MDR00016593
 production.rst
 production.top
 
-$ mdr-meta gen -d MDR00016593 -o MDR00016593/mdrepo-metadata.toml
+$ mdr-meta gen -d MDR00016593 -s GROMACS -o MDR00016593/mdrepo-metadata.toml
 ```
 
 Will generate the following TOML:
 
 ```
 lead_contributor_orcid = "0000-0000-0000-0000"
-trajectory_file_names = [
-    "5jz9.xtc",
-    "production.rst",
-]
+trajectory_file_names = ["5jz9.xtc"]
 structure_file_name = "5jz9_gromacs_cleaned.gro"
 topology_file_name = "production.top"
 temperature_kelvin = 300
 integration_timestep_fs = 2
 short_description = "<short_description> (required)"
-software_name = "<software_name> (required)"
+software_name = "GROMACS"
 software_version = "<software_version> (required)"
 
 [[additional_files]]
@@ -242,12 +244,20 @@ file_type = "Structure"
 file_name = "5jz9_production_gromacs.top"
 file_type = "Topology"
 
+[[additional_files]]
+file_name = "production.rst"
+file_type = "Other"
+
 [[contributors]]
 name = "<Your Name>"
 orcid = "<orcid> (optional)"
 email = "<email> (optional)"
 institution = "<institution> (optional)"
 ```
+
+Note that `production.rst` is no longer classified as a trajectory file: `.rst` is an AMBER
+restart-file convention, and telling `gen` this is a GROMACS directory (`-s GROMACS`) correctly
+excludes it, filing it under `additional_files` instead.
 
 ## upgrade
 
