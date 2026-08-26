@@ -1,6 +1,6 @@
 # TOML Tools (mdr-meta)
 
-Use [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) tool to help create and validate the TOML/metadata file.
+Use [mdr-meta](https://github.com/TravisWheelerLab/mdrepo-rs/releases) tool to create and validate the TOML/metadata file.
 
 Run the command with no arguments to see the available commands:
 
@@ -67,6 +67,7 @@ uniprot_ids = [
     "A0A0H2UWN8",
     "S8G8I1",
 ]
+collections = ["ATLAS"]
 dois = ["10.1017/j.str.2019.08.032"]
 is_embargoed = true
 
@@ -102,7 +103,7 @@ email = "barb@cshl.edu"
 institution = "Cold Spring Harbor Laboratory"
 ```
 
-Or use the `-m|--minimal` flag to generate TOML with the fewest acceptable fields:
+Or use the `-m|--minimal` flag to generate TOML with the only the required fields:
 
 ```
 $ mdr-meta eg -m

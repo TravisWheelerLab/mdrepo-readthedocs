@@ -28,6 +28,7 @@ The following fields are entirely optional:
 * `description` [text]: A longer description of the simulation
 * `run_commands` [text]: The commands used to produce the simulation
 * `dois` [array of text]: A list of digital object identifiers (DOI) (in leiu of `[[papers]]`)
+* `collections` [array of text]: Named collections the simulation belongs to, e.g. `["ATLAS"]`
 * `forcefield` [text]: Type of force field used to produce the simulation, e.g., AMBER, Amber ff99SB-ILDN, CHARMM36
 * `forcefield_comments` [text]: Comments relating to the force field used, e.g., ligand parameters
 * `protonation_method` [text]: The method used for adding the protonation state, e.g., PropKa, AutoDockFR, AutoDockFR
