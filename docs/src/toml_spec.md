@@ -52,8 +52,11 @@ The following [TOML tables](https://toml.io/en/v1.1.0#table) are optional:
     * `file_description` [optional, text]: Comments or description of the file
 * `[[ligands]]` (can be repeated)
     * `name` [required, text]: Name of the ligand
-    * `smiles` [required, text]: SMILES string for the ligand
-    * `inchi` [optional, text]: Standard InChI string for the ligand, e.g. `InChI=1S/CH4/h1H4`. Must be a *standard* InChI -- one beginning `InChI=1S/`; the non-standard `InChI=1/` form is refused, because two non-standard InChIs are not comparable and comparability is the whole reason for accepting the notation. Supplied **in addition to** `smiles`, not instead of it: `smiles` remains required even when you give an InChI. Both are stored, exactly as you wrote them, and neither is ever rewritten in your file -- keeping the two side by side is what lets a disagreement between them be spotted.
+    * `smiles` [text]: SMILES string for the ligand. Required unless you give `inchi` instead.
+    * `inchi` [text]: Standard InChI string for the ligand, e.g. `InChI=1S/CH4/h1H4`. Required unless you give `smiles` instead. Must be a *standard* InChI -- one beginning `InChI=1S/`; the non-standard `InChI=1/` form is refused, because two non-standard InChIs are not comparable and comparability is the whole reason for accepting the notation.
+    * **At least one of `smiles` and `inchi` is required, and either one alone is enough.** Whichever you leave out is derived from the one you gave and stored beside it. Give both and both are kept, and checked against each other: a pair describing two different molecules is refused rather than guessed at. Neither value is ever rewritten in your own file.
+        * A SMILES derived from an InChI will not be the string you would have written. SMILES has no canonical form, so the atom ordering and ring numbering come from the conversion; the molecule is the same one, and the InChIKey is what identifies it.
+        * **If you validate with `mdr-meta`,** note that releases up to and including v0.3.23 require `smiles` and reject a ligand declared only by `inchi`, even though the archive itself accepts it. Give `smiles` as well, or use a later release.
 * `[[solutes]]` (can be repeated)
     * `name` [required, text]: Solute name, e.g., Cl-, K+, Na+, Phosphoric acid, Urea,
     * `concentration_mol_liter` [required, floating-point number]: Solute concentration in the range 0-1 mol/liter
