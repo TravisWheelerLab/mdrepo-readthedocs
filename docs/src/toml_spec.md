@@ -35,6 +35,7 @@ The following fields are entirely optional:
 * `alias` [text]: A unique, user-assigned alias/accession for the simulation
 * `sampling_frequency_ps` [floating-point number]: The simulated time between consecutive saved trajectory frames, in picoseconds (AMBER's `ntwx`, GROMACS's `nstxout`, times the integration timestep), in the range 1-100000. Read in two situations, and ignored otherwise. First, when the trajectory file itself carries no time axis (e.g., an AMBER NetCDF stripped of solvent by cpptraj, or an ASCII mdcrd) it supplies the spacing, since nothing can be measured. Second, when a spacing *was* measured and comes out below 10 ps, this value is **required** and must match what the trajectory reports: a file carrying no usable timing is stamped by the conversion with a default of 1 ps per frame, which is indistinguishable from a genuine 1 ps, so a spacing that small is not recorded on the trajectory's word alone. If your simulation really did save frames less than 10 ps apart, declare it here. At or above 10 ps the trajectory's own time axis is authoritative and this value is ignored.
     * **1 ps is an absolute minimum.** No spacing below it is accepted from any source, declared or measured.
+    * **"Match" means within 1% of the value you declare.** The comparison is made in floating-point against the spacing measured from the trajectory, so declare the value your run actually used rather than a rounded one: a disagreement that looks like exactly 1% on paper can still fall outside the tolerance and be refused.
     * A declaration that contradicts the trajectory is rejected rather than believed. If the trajectory's own timing is the part that is wrong, the file needs correcting -- this field cannot stand in for it.
 * `is_embargoed` [boolean]: Whether the simulation should be kept private (embargoed) rather than released publicly once approved. Defaults to `false` if omitted. Orthogonal to the approval process -- an embargoed simulation is hidden from public listings/downloads even after it is otherwise approved, until the embargo is lifted.
 
@@ -52,6 +53,7 @@ The following [TOML tables](https://toml.io/en/v1.1.0#table) are optional:
 * `[[ligands]]` (can be repeated)
     * `name` [required, text]: Name of the ligand
     * `smiles` [required, text]: SMILES string for the ligand
+    * `inchi` [optional, text]: Standard InChI string for the ligand, e.g. `InChI=1S/CH4/h1H4`. Must be a *standard* InChI -- one beginning `InChI=1S/`; the non-standard `InChI=1/` form is refused, because two non-standard InChIs are not comparable and comparability is the whole reason for accepting the notation. Supplied **in addition to** `smiles`, not instead of it: `smiles` remains required even when you give an InChI. Both are stored, exactly as you wrote them, and neither is ever rewritten in your file -- keeping the two side by side is what lets a disagreement between them be spotted.
 * `[[solutes]]` (can be repeated)
     * `name` [required, text]: Solute name, e.g., Cl-, K+, Na+, Phosphoric acid, Urea,
     * `concentration_mol_liter` [required, floating-point number]: Solute concentration in the range 0-1 mol/liter
