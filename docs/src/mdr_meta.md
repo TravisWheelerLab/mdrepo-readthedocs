@@ -96,7 +96,7 @@ concentration_mol_liter = 0.15
 url = "http://aol.com"
 label = "My Link"
 
-[[contributors]]
+[[creators]]
 name = "Barbara McClintock"
 orcid = "0000-0002-6897-9608"
 email = "barb@cshl.edu"
@@ -249,7 +249,7 @@ file_type = "Topology"
 file_name = "production.rst"
 file_type = "Other"
 
-[[contributors]]
+[[creators]]
 name = "<Your Name>"
 orcid = "<orcid> (optional)"
 email = "<email> (optional)"

@@ -72,8 +72,16 @@ The following [TOML tables](https://toml.io/en/v1.1.0#table) are optional:
 * `[[external_links]]` (can be repeated)
     * `url` [required, text]: A URL
     * `label` [optional, text]: The label to display
-* `[[contributors]]` (can be repeated)
-    * `name` [required, text]: Name of the contributor
-    * `orcid` [optional, text]: ORCID of the contributor
-    * `email` [optional, text]: Email address of the contributor
-    * `institution` [optional, text]: Institution of the contributor
+* `[[creators]]` (can be repeated) — the people who **generated the
+  simulation data**. Not to be confused with `lead_contributor_orcid`, which
+  identifies whoever **uploaded** the submission.
+    * `name` [required, text]: Name of the creator
+    * `orcid` [optional, text]: ORCID of the creator
+    * `email` [optional, text]: Email address of the creator
+    * `institution` [optional, text]: Institution of the creator
+
+    This table was called `[[contributors]]` before mdr-meta 0.3.26, and
+    **that spelling is still accepted** — existing files need no change. New
+    files should use `[[creators]]`, and `mdr-meta` writes the new name when
+    it generates or reformats a file. Note that validation messages name the
+    field as `creators` even when your file spells it the old way.
