@@ -4,3 +4,4 @@
 - [TOML Specification](./toml_spec.md)
 - [mdr-meta](./mdr_meta.md)
 - [Citation](./citation.md)
+- [AI agents (MCP)](./ai_agents.md)
